@@ -1,4 +1,4 @@
-# Sibfsa (Django) — Premium full‑stack with dark/light mode
+# Sibfsa (Django) — Premium full‑stack 
 
 Python-only full-stack ecommerce for Sibfsa. Django 5, session cart, COD checkout, reviews with moderation, admin CMS, premium theme, dark/light toggle via cookie. 7-section homepage.
 
