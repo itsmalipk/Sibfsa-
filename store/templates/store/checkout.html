@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load currency %}
+{% block title %}Checkout — Sibfsa{% endblock %}
+{% block content %}
+<div class="container section" style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+  <div>
+    <h1 style="font-size: 32px;">Checkout</h1>
+    <form method="post" style="margin-top:12px;">
+      {% csrf_token %}
+      <div class="form-group"><label class="label">Email</label>{{ form.email }}</div>
+      <div class="form-group"><label class="label">Full Name</label>{{ form.name }}</div>
+      <div class="form-group"><label class="label">Phone</label>{{ form.phone }}</div>
+      <div class="form-group"><label class="label">Address line 1</label>{{ form.line1 }}</div>
+      <div class="form-group"><label class="label">Address line 2</label>{{ form.line2 }}</div>
+      <div class="form-group"><label class="label">City</label>{{ form.city }}</div>
+      <div class="form-group"><label class="label">Region/Province</label>{{ form.region }}</div>
+      <div class="form-group"><label class="label">Postal Code</label>{{ form.postal_code }}</div>
+      <div class="form-group"><label class="label">Country</label>{{ form.country }}</div>
+      <button class="btn primary">Place COD Order</button>
+      <p class="tiny muted" style="margin-top:8px;">By placing your order, you agree to our Terms and Privacy Policy. Payment: COD.</p>
+    </form>
+  </div>
+  <div>
+    <div class="card"><div class="body">
+      <h3 class="h5">Order summary</h3>
+      <table class="table">
+        {% for it in items %}
+          <tr><td>{{ it.product.name }} × {{ it.quantity }}</td><td style="text-align:right;">{{ it.product.price_pkr|pkr }}</td></tr>
+        {% endfor %}
+        <tr><td><strong>Total</strong></td><td style="text-align:right;"><strong>{{ total|pkr }}</strong></td></tr>
+      </table>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load currency %}
+{% block title %}{{ product.name }} — Sibfsa{% endblock %}
+{% block content %}
+<div class="container section">
+  <div class="grid grid-2">
+    <div class="card">{% with img=product.main_image %}{% if img %}<img src="{{ img.url }}" alt="{{ img.alt|default:product.name }}">{% endif %}{% endwith %}</div>
+    <div>
+      <h1 style="font-size:32px;">{{ product.name }}</h1>
+      <div class="price" style="margin-top:6px;">{{ product.price_pkr|pkr }}</div>
+      <p class="muted" style="margin-top:10px;">{{ product.description }}</p>
+      <form action="/cart/add/{{ product.id }}/" method="post" style="margin-top:12px;">
+        {% csrf_token %}<button class="btn primary">Add to Cart</button>
+      </form>
+      <div style="margin-top:18px;">
+        <h3 class="h5">FAQs & Usage</h3>
+        {% if "apricot-oil" in product.slug %}
+          <ul class="muted"><li>Use 2–3 drops on damp skin.</li><li>Hair: apply to mid-lengths/ends.</li><li>Patch test recommended.</li></ul>
+        {% elif "shilajit" in product.slug %}
+          <ul class="muted"><li>Dissolve a pea-sized amount in warm water/tea once daily.</li><li>Not medical advice.</li><li>See batch lab results via QR.</li></ul>
+        {% else %}
+          <ul class="muted"><li>3–5 drops after cleansing; follow with SPF in AM.</li><li>Fragrance-free, lightweight feel.</li><li>Patch test recommended.</li></ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <h3 class="h5">Reviews</h3>
+    {% if reviews %}
+      <div class="grid grid-3">
+        {% for r in reviews %}
+          <div class="card"><div class="body">
+            <div style="font-weight:600;">{{ r.title }} <span style="color:var(--apricot);">({{ r.rating }}/5)</span></div>
+            <p class="muted">{{ r.body }}</p>
+          </div></div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">No reviews yet. Be the first to share your ritual.</p>
+    {% endif %}
+
+    <div class="card" style="margin-top:16px;"><div class="body">
+      <h4 class="h5">Write a review</h4>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="review">
+        <div class="form-group"><label class="label">Rating (1–5)</label><input name="rating" type="number" min="1" max="5" class="input" required></div>
+        <div class="form-group"><label class="label">Title</label><input name="title" class="input" required></div>
+        <div class="form-group"><label class="label">Review</label><textarea name="body" rows="4" class="textarea" required></textarea></div>
+        <button class="btn secondary">Submit</button>
+        <p class="tiny muted" style="margin-top:6px;">Reviews are moderated for authenticity.</p>
+      </form>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

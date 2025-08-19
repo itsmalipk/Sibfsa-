@@ -1,0 +1,74 @@
+{% load static %}
+{% load currency %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>{% block title %}Sibfsa — Mountain-pure. Ritual-ready.{% endblock %}</title>
+  <meta name="description" content="Premium, ethically sourced apricot oil and lab-tested shilajit from Gilgit-Baltistan."/>
+  <meta property="og:title" content="Sibfsa — Mountain-pure. Ritual-ready.">
+  <meta property="og:description" content="Premium apricot oil and lab-tested shilajit from Gilgit-Baltistan.">
+  <meta property="og:image" content="{% static 'images/og-cover.jpg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="{{ theme_class }}">
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="/"><img src="{% static 'images/logo-mark.svg' %}" alt="Sibfsa" width="28" height="28"><span class="brand__name">Sibfsa</span></a>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/shop/">Shop</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <a href="/cart/">🛒{% if cart_count %}<span class="badge">{{ cart_count }}</span>{% endif %}</a>
+        {% if theme == 'dark' %}
+          <a class="mode" href="/theme/light/" title="Switch to light">☀️</a>
+        {% else %}
+          <a class="mode" href="/theme/dark/" title="Switch to dark">🌙</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  {% if messages %}
+    <div class="container">
+      {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <h4 class="h4">Mountain-pure. Ritual-ready.</h4>
+        <p class="muted">Premium, ethical, and lab-tested products from Gilgit-Baltistan.</p>
+      </div>
+      <div>
+        <h5 class="h5">Company</h5>
+        <ul class="list">
+          <li><a href="/about/">About</a></li>
+          <li><a href="/policies/shipping/">Shipping</a></li>
+          <li><a href="/policies/returns/">Returns</a></li>
+          <li><a href="/policies/privacy/">Privacy</a></li>
+          <li><a href="/policies/terms/">Terms</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="h5">Newsletter</h5>
+        <form onsubmit="return false;" class="newsletter">
+          <input placeholder="Your email" aria-label="Your email">
+          <button>Subscribe</button>
+        </form>
+        <p class="tiny muted">By subscribing, you agree to our Privacy Policy.</p>
+      </div>
+    </div>
+    <div class="footer__bottom">© {% now "Y" %} Sibfsa. All rights reserved.</div>
+  </footer>
+</body>
+</html>

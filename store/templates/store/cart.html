@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load currency %}
+{% block title %}Your Cart — Sibfsa{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1 style="font-size: 32px;">Your Cart</h1>
+  {% if not items %}
+    <p class="muted">Your cart is empty.</p>
+  {% else %}
+    <form method="post" action="/cart/update/">
+      {% csrf_token %}
+      <table class="table" style="margin-top:12px;">
+        <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+          {% for it in items %}
+          <tr>
+            <td>{{ it.product.name }}</td>
+            <td><input class="input" type="number" min="0" name="qty_{{ it.product.id }}" value="{{ it.quantity }}" style="max-width: 90px;"></td>
+            <td>{{ it.product.price_pkr|pkr }}</td>
+            <td><a class="tiny" href="/cart/remove/{{ it.product.id }}/">Remove</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+        <div class="muted">Subtotal</div>
+        <div class="price">{{ total|pkr }}</div>
+      </div>
+      <div style="margin-top:12px; display:flex; gap:10px;">
+        <button class="btn secondary" type="submit">Update Cart</button>
+        <a class="btn primary" href="/checkout/">Checkout</a>
+      </div>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

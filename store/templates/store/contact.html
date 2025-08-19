@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Contact — Sibfsa{% endblock %}
+{% block content %}
+<div class="container section" style="max-width:760px;">
+  <h1>Contact</h1>
+  <p class="muted">Email: support@sibfsa.com</p>
+  <p>For wholesale or partnerships, please reach out with your details and we’ll respond within 2 business days.</p>
+  <div class="card" style="margin-top:14px;"><div class="body">
+    <h3 class="h5">Message</h3>
+    <form onsubmit="return false;">
+      <div class="form-group">
+        <label class="label" for="name">Name</label>
+        <input id="name" class="input" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label class="label" for="email">Email</label>
+        <input id="email" type="email" class="input" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="label" for="msg">Message</label>
+        <textarea id="msg" class="textarea" rows="5" placeholder="How can we help?"></textarea>
+      </div>
+      <button class="btn secondary">Send</button>
+      <p class="tiny muted" style="margin-top:6px;">Note: demo form (no backend). Use email above for real inquiries.</p>
+    </form>
+  </div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load currency %}
+{% block title %}Order #{{ order.id }} — Sibfsa{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1 class="h4" style="font-size: 30px;">Thank you! Order #{{ order.id }}</h1>
+  <p class="muted">We’ve received your order. For COD, our team may reach out to verify.</p>
+  <div class="card" style="margin-top:12px;"><div class="body">
+    <h3 class="h5">Items</h3>
+    <table class="table">
+      {% for it in order.items.all %}
+        <tr><td>{{ it.name }} × {{ it.quantity }}</td><td style="text-align:right;">{{ it.price_pkr|pkr }}</td></tr>
+      {% endfor %}
+      <tr><td><strong>Total</strong></td><td style="text-align:right;"><strong>{{ order.total_pkr|pkr }}</strong></td></tr>
+    </table>
+    <p class="tiny muted">Status: {{ order.status }} | Payment: {{ order.payment_method }}</p>
+  </div></div>
+</div>
+{% endblock %}

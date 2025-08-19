@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Shop — Sibfsa{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1 style="font-size: 36px;">Shop</h1>
+  <div class="grid grid-3" style="margin-top:16px;">
+    {% for p in products %}
+    <a href="/product/{{ p.slug }}/" class="card">
+      {% if p.main_image %}<img src="{{ p.main_image.url }}" alt="{{ p.main_image.alt|default:p.name }}">{% endif %}
+      <div class="body">
+        <div style="font-weight:600;">{{ p.name }}</div>
+        <div class="muted">{{ p.price_pkr|pkr }}</div>
+      </div>
+    </a>
+    {% empty %}
+      <p class="muted">No products available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
